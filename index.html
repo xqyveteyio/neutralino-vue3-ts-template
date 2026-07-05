@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neutralino + Vue3 + TS</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- neu CLI 在 `neu run` 时会把下面这行 src 改写为开发服务器上的全局变量脚本，实现 HMR；`neu build` 前会还原 -->
+    <script src="http://localhost:36791/__neutralino_globals.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>子窗口</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!--
+      子窗口入口：不引用 __neutralino_globals.js。
+      子窗口是独立的 Neutralino 进程，依靠 neutralino.config.json 中
+      modes.window.injectGlobals: true 由原生侧直接注入自己的 NL_PORT / NL_TOKEN，
+      避免开发模式下被 neu CLI 补丁成主进程的全局变量导致连接错误。
+    -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

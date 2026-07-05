@@ -1,44 +1,60 @@
 {
-  "applicationId": "js.neutralino.zero",
+  "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
+  "applicationId": "com.example.neutralino-vue3-ts",
   "version": "1.0.0",
   "defaultMode": "window",
-  "documentRoot": "/frontend/dist",
+  "port": 0,
+  "documentRoot": "/dist/",
   "url": "/",
   "enableServer": true,
   "enableNativeAPI": true,
+  "exportAuthInfo": true,
+  "singlePageServe": true,
+  "tokenSecurity": "one-time",
+  "logging": {
+    "enabled": true,
+    "writeToLogFile": false
+  },
   "nativeAllowList": [
     "app.*",
     "os.*",
     "window.*",
-    "storage.*",
     "events.*",
-    "filesystem.*",
-    "debug.log"
+    "debug.*",
+    "storage.*",
+    "clipboard.*",
+    "computer.*",
+    "filesystem.*"
   ],
   "modes": {
     "window": {
-      "title": "Wallpaper Manager",
+      "title": "Neutralino + Vue3 + TS",
+      "width": 1000,
+      "height": 680,
+      "minWidth": 480,
+      "minHeight": 360,
       "center": true,
-      "width": 800,
-      "height": 600,
-      "minWidth": 400,
-      "minHeight": 200,
-      "icon": "/frontend/src/assets/logo.png",
-      "transparent": true,
+      "icon": "/dist/icons/appIcon.png",
+      "enableInspector": true,
       "exitProcessOnClose": false,
-      "enableInspector": false
+      "injectGlobals": true
     }
   },
   "cli": {
-    "binaryName": "wallpaper-manager",
-    "resourcesPath": "/frontend/dist/",
-    "extensionsPath": "/extensions/",
-    "clientLibrary": "/frontend/public/neutralino.js",
+    "binaryName": "neutralino-vue3-ts",
+    "resourcesPath": "/dist/",
     "binaryVersion": "6.8.0",
     "clientVersion": "6.8.0",
+    "distributionPath": "/release",
+    "resourcesExclude": ".*\\.map$",
     "frontendLibrary": {
-      "patchFile": "/frontend/index.html",
-      "devUrl": "http://localhost:8080"
+      "patchFile": "/index.html",
+      "devUrl": "http://localhost:5173",
+      "projectPath": "/",
+      "initCommand": "npm install",
+      "devCommand": "npm run dev",
+      "buildCommand": "npm run build",
+      "waitTimeout": 60000
     }
   }
 }
