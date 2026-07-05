@@ -52,7 +52,6 @@
       "devUrl": "http://localhost:5173",
       "projectPath": "/",
       "initCommand": "npm install",
-      "devCommand": "npm run dev",
       "buildCommand": "npm run build",
       "waitTimeout": 60000
     }

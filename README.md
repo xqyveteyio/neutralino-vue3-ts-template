@@ -52,9 +52,9 @@ npm run app:build  # 构建发布包到 release/（含各平台二进制 + zip�
 
 ## 工作原理速记
 
-- **HMR**：`neu run` 执行 `cli.frontendLibrary.devCommand`（`npm run dev`）启动 Vite，等 5173 端口就绪后把 `index.html` 里的 `__neutralino_globals.js` 的 src 临时改写到 Neutralino 服务器地址，再以 `--url=http://localhost:5173` 启动原生窗口；退出时自动还原补丁。**开发中避免强杀 CLI**，否则手动检查 `index.html` 是否被还原。
+- **HMR**：`npm run app:dev`（`scripts/dev.mjs`）分别启动 Vite 和 `neu run`；neu 等 5173 端口就绪后把 `index.html` 里 `__neutralino_globals.js` 的 src 临时改写到 Neutralino 服务器地址，再以 `--url=http://localhost:5173` 启动原生窗口。应用退出后 dev.mjs 会整组回收 Vite 进程（Vite 不由 neu 的 `devCommand` 启动，否则应用退出后 Vite 和 neu 都会残留）。**开发中避免强杀进程**，否则手动检查 `index.html` 的补丁是否被还原。
 - **托盘**：`os.setTray()` 设置图标与菜单，监听 `trayMenuItemClicked` 事件分发动作。托盘图标路径 `/dist/icons/trayIcon.png` 相对应用目录，与打包资源路径一致。
-- **子窗口**：`window.create()` 会为每个窗口 spawn 一个全新的 Neutralino 进程（互相隔离、不共享内存）。子窗口入口 `child.html` 不引用 `__neutralino_globals.js`，全局变量由配置里 `modes.window.injectGlobals: true` 从原生侧注入，避免开发模式下被补丁成主进程的连接信息。跨窗口共享数据可用 `storage` API 或 `events.broadcast`。
+- **子窗口**：`window.create()` 会为每个窗口 spawn 一个全新的 Neutralino 进程（互相隔离、不共享内存）。子窗口入口 `child.html` 不引用 `__neutralino_globals.js`，全局变量由配置里 `modes.window.injectGlobals: true` 从原生侧注入，避免开发模式下被补丁成主进程的连接信息。跨窗口共享数据可用 `storage` API 或 `events.broadcast`。因为进程相互独立，主进程退出不会自动带走子窗口，模板会记录每个子窗口的 PID，托盘「退出」时先结束所有子窗口进程再退出主进程。
 - **路由**：使用 hash 模式（`createWebHashHistory`），静态服务器无需重写规则；子窗口打开 `child.html#/child` 直达子窗口页面。
 
 ## 常见问题
