@@ -35,7 +35,7 @@
       "minHeight": 360,
       "center": true,
       "icon": "/dist/icons/appIcon.png",
-      "enableInspector": true,
+      "enableInspector": false,
       "exitProcessOnClose": false,
       "injectGlobals": true
     }
